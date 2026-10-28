@@ -1,0 +1,82 @@
+{
+  "system_under_test": "Lipson07/mdk09-01-samoylov-2026, portal/app.py",
+  "scope": "isolated local SQLite test database",
+  "checks": [
+    {
+      "name": "Главная страница",
+      "expected_status": 200,
+      "actual_status": 200,
+      "passed": true
+    },
+    {
+      "name": "Корректная регистрация",
+      "expected_status": 303,
+      "actual_status": 303,
+      "passed": true
+    },
+    {
+      "name": "Короткий логин",
+      "expected_status": 400,
+      "actual_status": 400,
+      "passed": true
+    },
+    {
+      "name": "Короткий пароль",
+      "expected_status": 400,
+      "actual_status": 400,
+      "passed": true
+    },
+    {
+      "name": "Дублирующийся логин",
+      "expected_status": 400,
+      "actual_status": 400,
+      "passed": true
+    },
+    {
+      "name": "Некорректная почта bad@",
+      "expected_status": 400,
+      "actual_status": 303,
+      "passed": false
+    },
+    {
+      "name": "Неверный пароль",
+      "expected_status": 401,
+      "actual_status": 401,
+      "passed": true
+    },
+    {
+      "name": "Корректный вход",
+      "expected_status": 303,
+      "actual_status": 303,
+      "passed": true
+    },
+    {
+      "name": "Личный кабинет после входа",
+      "expected_status": 200,
+      "actual_status": 200,
+      "passed": true
+    }
+  ],
+  "http_exchange": {
+    "request": {
+      "method": "POST",
+      "path": "/login",
+      "headers": {
+        "Accept": "text/html",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "body": "login=student01&password=WrongPass123"
+    },
+    "response": {
+      "status": 401,
+      "reason": "Unauthorized",
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": "1210",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "same-origin"
+      },
+      "body_excerpt": "<section class=\"narrow page-block\"><p class=\"eyebrow\">Ошибка 401</p><h1>Неверный логин или пароль</h1><p><a class=\"button\" href=\"/\">На главную</a></p></section>"
+    }
+  }
+}
